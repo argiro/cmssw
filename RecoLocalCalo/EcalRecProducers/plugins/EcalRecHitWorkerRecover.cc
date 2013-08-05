@@ -130,7 +130,6 @@ EcalRecHitWorkerRecover::run( const edm::Event & evt,
 
         if ( flags == EcalRecHitWorkerRecover::EB_single ) {
 
-
                     // recover as single dead channel
                     const EcalRecHitCollection * hit_collection = &result;
                     EBDeadChannelRecoveryAlgos deadChannelCorrector(caloTopology_.product());
