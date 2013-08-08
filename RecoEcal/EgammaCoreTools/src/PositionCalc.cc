@@ -55,7 +55,7 @@ PositionCalc::Calculate_Location( const std::vector< std::pair<DetId, float> >& 
    if( 0 != iDetIds.size()   &&
        0 != iRecHits->size()     )
    {
-      typedef std::vector<DetId> DetIdVec ;
+     typedef std::vector< std::pair<DetId,float> > DetIdVec ;
 
       DetIdVec detIds ;
       detIds.reserve( iDetIds.size() ) ;
@@ -69,14 +69,16 @@ PositionCalc::Calculate_Location( const std::vector< std::pair<DetId, float> >& 
       for( std::vector< std::pair<DetId, float> >::const_iterator n ( iDetIds.begin() ) ; n != iDetIds.end() ; ++n ) 
       {
 	 const DetId dId ( (*n).first ) ;
+	 const float frac( (*n).second);
+
 	 if( !dId.null() )
 	 {
 	    EcalRecHitCollection::const_iterator iHit ( iRecHits->find( dId ) ) ;
 	    if( iHit != endRecHits )
 	    {
-	       detIds.push_back( dId );
+	      detIds.push_back( std::pair<DetId,float>(dId,frac) );
 
-	       const double energy ( iHit->energy() ) ;
+	       const double energy ( iHit->energy() * frac) ;
 
 	       if( 0 < energy ) // only save positive energies
 	       {
@@ -146,9 +148,10 @@ PositionCalc::Calculate_Location( const std::vector< std::pair<DetId, float> >& 
 
 	 for( DetIdVec::const_iterator j ( detIds.begin() ) ; j != detIds.end() ; ++j ) 
 	 {
-	    const DetId dId ( *j ) ;
+	    const DetId dId ( (*j).first ) ;
+	    const float frac( (*j).second );
 	    EcalRecHitCollection::const_iterator iR ( iRecHits->find( dId ) ) ;
-	    const double e_j ( iR->energy() ) ;
+	    const double e_j ( iR->energy() * frac) ;
 
 	    double weight = 0;
             if ( param_LogWeighted_ ) {
