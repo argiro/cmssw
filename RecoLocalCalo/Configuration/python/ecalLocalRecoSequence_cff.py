@@ -18,6 +18,7 @@ from RecoLocalCalo.EcalRecProducers.ecalCompactTrigPrim_cfi import *
 from RecoLocalCalo.EcalRecProducers.ecalTPSkim_cfi import *
 
 
+
 ecalUncalibRecHitSequence = cms.Sequence(ecalGlobalUncalibRecHit*
                                          ecalDetIdToBeRecovered)
 
@@ -29,4 +30,13 @@ ecalRecHitSequence        = cms.Sequence(ecalRecHit*
 ecalLocalRecoSequence     = cms.Sequence(ecalUncalibRecHitSequence*
                                          ecalRecHitSequence)
 
-ecalRecHit.ChannelStatusToBeExcluded = [ 3, 4, 8, 9, 10, 11, 12, 13, 14 ]
+#ecalRecHit.ChannelStatusToBeExcluded = [ 3, 4, 8, 9, 10, 11, 12, 13, 14 ]
+ecalRecHit.ChannelStatusToBeExcluded = ['kNoisy',
+                                        'kNNoisy',
+                                        'kFixedG6',
+                                        'kFixedG1',
+                                        'kFixedG0',
+                                        'kNonRespondingIsolated',
+                                        'kDeadVFE',
+                                        'kDeadFE',
+                                        'kNoDataNoTP']
