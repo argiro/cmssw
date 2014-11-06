@@ -105,6 +105,7 @@ namespace ecaldqm
   bool
   DQWorkerClient::retrieveSource(DQMStore::IGetter& _igetter, ProcessType _type)
   {
+    int ready(-1);  
     std::string failedPath;
     for(MESetCollection::iterator sItr(sources_.begin()); sItr != sources_.end(); ++sItr){
       if(!onlineMode_ && _type == kLumi && !sItr->second->getLumiFlag()) continue;
@@ -118,7 +119,7 @@ namespace ecaldqm
       }
     }
 
-    return true;
+    return ready==1;
   }
 
   void
