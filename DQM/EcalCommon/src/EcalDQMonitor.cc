@@ -97,6 +97,7 @@ namespace ecaldqm
   }
 
   void
+
   EcalDQMonitor::ecaldqmBookHistograms(DQMStore::IBooker& _ibooker)
   {
     executeOnWorkers_([&_ibooker](ecaldqm::DQWorker* worker){
@@ -114,6 +115,7 @@ namespace ecaldqm
   }
 
   void
+
   EcalDQMonitor::ecaldqmBeginRun(edm::Run const& _run, edm::EventSetup const& _es)
   {
     executeOnWorkers_([&_run, &_es](DQWorker* worker){
