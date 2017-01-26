@@ -40,8 +40,8 @@ class EcalDigiSelector : public edm::stream::EDProducer<>
   edm::EDGetTokenT<EcalRecHitCollection> EcalEERecHitToken_;
   edm::EDGetTokenT<EBDigiCollection> EcalEBDigiToken_;
   edm::EDGetTokenT<EEDigiCollection> EcalEEDigiToken_;
-
-
+  
+  std::vector<int> flagsToSave_; // save digis with these flags, nop if empty
  
 
   double cluster_pt_thresh_;

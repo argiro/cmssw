@@ -11,5 +11,6 @@ selectDigi = cms.EDProducer("EcalDigiSelector",
     cluster_pt_thresh = cms.double(10.0),
     single_cluster_thresh = cms.double(15.0),
     selectedEcalEBDigiCollection = cms.string('selectedEcalEBDigiCollection'),
-    selectedEcalEEDigiCollection = cms.string('selectedEcalEEDigiCollection')
+    selectedEcalEEDigiCollection = cms.string('selectedEcalEEDigiCollection'),
+    flags_to_save = cms.vstring()                        
 )
