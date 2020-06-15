@@ -1,16 +1,17 @@
 import FWCore.ParameterSet.Config as cms
+
 simCastorDigis = cms.EDAlias(
     mix = cms.VPSet(
       cms.PSet(type = cms.string('CastorDataFramesSorted'))
     )
 )
+
 simEcalUnsuppressedDigis = cms.EDAlias(
     mix = cms.VPSet(
-        cms.PSet(type = cms.string('EBDigiCollection')),
-        cms.PSet(type = cms.string('EEDigiCollection')),
-        cms.PSet(type = cms.string('ESDigiCollection'))
+        cms.PSet(type = cms.string('EBDigiCollectionPh2'))
     )
 )
+
 simHcalUnsuppressedDigis = cms.EDAlias(
     mix = cms.VPSet(
       cms.PSet(type = cms.string('HBHEDataFramesSorted')),
@@ -69,11 +70,24 @@ simHFNoseUnsuppressedDigis = cms.EDAlias(
     )
 )
 
+#print "loading mix simAPV saturation"
+#simAPVsaturation = cms.EDAlias(
+#    mix = cms.VPSet(
+#        cms.PSet(type = cms.string('bool'))
+#    )
+#)
+
 simAPVsaturation = cms.EDAlias(
-   mix = cms.VPSet(
-       cms.PSet(type = cms.string('bool'))
-   )
+    mixData = cms.VPSet(
+        cms.PSet(
+            type = cms.string('bool'),
+            fromProductInstance = cms.string('siStripDigisDMSimulatedAPVDynamicGain'),
+            toProductInstance = cms.string('SimulatedAPVDynamicGain'),
+            )
+    )
 )
+
+
 
 from Configuration.Eras.Modifier_run3_common_cff import run3_common
 run3_common.toModify(simCastorDigis, mix = None)
@@ -97,6 +111,7 @@ from Configuration.Eras.Modifier_phase1Pixel_cff import phase1Pixel
 phase1Pixel.toModify(simSiPixelDigis, mix = _pixelCommon + [cms.PSet(type = cms.string('PixelFEDChanneledmNewDetSetVector'))])
 
 # no castor,pixel,strip digis in fastsim
+
 from Configuration.Eras.Modifier_fastSim_cff import fastSim
 fastSim.toModify(simCastorDigis, mix = None)
 fastSim.toModify(simSiPixelDigis, mix = None)

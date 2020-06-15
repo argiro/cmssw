@@ -10,7 +10,20 @@ ecal_sim_parameter_map = cms.PSet(
     simHitToPhotoelectronsBarrel = cms.double(2250.0),
     syncPhase = cms.bool(True),
     doPhotostatistics = cms.bool(True),
+    photoelectronsToAnalogBarrel = cms.double(0.000444444)
+)
+
+ecal_sim_parameter_map_ph2 = cms.PSet(
+    #photoelectronsToAnalogEndcap = cms.double(0.000555555),
+    readoutFrameSize = cms.int32(16),
+    binOfMaximum = cms.int32(6),
+    #simHitToPhotoelectronsEndcap = cms.double(1800.0),
+    samplingFactor = cms.double(1.0),
+    timePhase = cms.double(0.0),
+    simHitToPhotoelectronsBarrel = cms.double(2250.0),
+    syncPhase = cms.bool(True),
+    doPhotostatistics = cms.bool(True),
     photoelectronsToAnalogBarrel = cms.double(0.000444444),
-    timeDependent = cms.bool(False)
+    #isPhase2 = cms.bool(True) ####################################################### NEW
 )
 

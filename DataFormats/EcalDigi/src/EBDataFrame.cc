@@ -1,7 +1,7 @@
 #include "DataFormats/EcalDigi/interface/EBDataFrame.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include <iostream>
-
+//#warning[DataFormats/EcalDigi/src/EBDataFrame.cc] spike estimator contains a suspicious 10
 float EBDataFrame::spikeEstimator() const {
   if (size() != 10) {
     edm::LogError("InvalidNumberOfSamples")

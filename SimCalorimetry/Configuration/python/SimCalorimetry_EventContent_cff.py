@@ -1,5 +1,4 @@
 import FWCore.ParameterSet.Config as cms
-
 # This object modifies the event content for different scenarios
 
 SimCalorimetryFEVTDEBUG = cms.PSet(
