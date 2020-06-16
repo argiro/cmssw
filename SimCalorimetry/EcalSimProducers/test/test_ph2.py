@@ -79,7 +79,8 @@ process.RECOSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     fileName = cms.untracked.string('SingleElectronPt10_pythia8_cfi_py_GEN_SIM_DIGI.root'),
-    outputCommands = process.RECOSIMEventContent.outputCommands,
+    #outputCommands = process.RECOSIMEventContent.outputCommands,
+    outputCommands = cms.untracked.vstring('keep *','drop *_mix_*_*'),          
     splitLevel = cms.untracked.int32(0)
 )
 
@@ -133,6 +134,8 @@ for path in process.paths:
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)
 # End adding early deletion
+
+
 
 
 ##### Added by hand - phase 2 payload configuration ###############
