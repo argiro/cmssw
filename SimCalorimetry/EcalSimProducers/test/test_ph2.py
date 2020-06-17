@@ -2,12 +2,12 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: SingleElectronPt10_pythia8_cfi.py -s GEN,SIM,DIGI --conditions auto:mc --datatier GEN-SIM-RAW --eventcontent RECOSIM -n 10 --no_exec --python_filename test.py --era phase2_common --no_exec
+# with command line options: SingleElectronPt10_pythia8_cfi.py -s GEN,SIM,DIGI --conditions auto:mc --datatier GEN-SIM-RAW --eventcontent RECOSIM -n 10 --no_exec --python_filename test_test.py --era Phase2
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Eras.Modifier_phase2_common_cff import phase2_common
+from Configuration.Eras.Era_Phase2_cff import Phase2
 
-process = cms.Process('DIGI',phase2_common)
+process = cms.Process('DIGI',Phase2)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -79,8 +79,7 @@ process.RECOSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     fileName = cms.untracked.string('SingleElectronPt10_pythia8_cfi_py_GEN_SIM_DIGI.root'),
-    #outputCommands = process.RECOSIMEventContent.outputCommands,
-    outputCommands = cms.untracked.vstring('keep *','drop *_mix_*_*'),          
+    outputCommands = process.RECOSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
 
@@ -134,40 +133,3 @@ for path in process.paths:
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)
 # End adding early deletion
-
-
-
-
-##### Added by hand - phase 2 payload configuration ###############
-process.load('SimCalorimetry.EcalSimProducers.esCATIAGainProducer_cfi')
-process.load('SimCalorimetry.EcalSimProducers.esEcalLiteDTUPedestalsProducer_cfi')
-
-
-#CondCore.CondDB.CondDB_cfi
-from CondCore.DBCommon.CondDBSetup_cfi import *
-#from CondCore.CondDB.CondDB_cfi import *
-process.ecalConditions = cms.ESSource("PoolDBESSource", CondDBSetup,
-      #connect = cms.string('frontier://FrontierProd/CMS_COND_31X_ECAL'),
-      #connect = cms.string('oracle://cms_orcoff_prep/CMS_COND_ECAL'),
-      #authpath = cms.string('/afs/cern.ch/cms/DB/conddb'),
-      #connect = cms.string('sqlite_file:SimCalorimetry/EcalSimProducers/test/simPulseShapePhaseII.db'),
-      connect = cms.string('sqlite_file:simPulseShapePhaseII.db'),                                
-
-      toGet = cms.VPSet(         # overide Global Tag use EcalTBWeights_EBEE_offline
-                  cms.PSet(
-                      record = cms.string('EcalSimPulseShapeRcd') ,
-                      tag = cms.string('EcalSimPulseShape_default_mc')
-                  )
-              )
-)
-process.es_prefer_ecalPulseShape = cms.ESPrefer("PoolDBESSource","ecalConditions")
-
-process.EcalCATIAGainRatiosESProducer = cms.ESProducer(
-	"EcalCATIAGainRatiosESProducer",
-	ComponentName = cms.string('testGainProducer')
-)
-
-process.EcalLiteDTUPedestalsESProducer = cms.ESProducer(
-	"EcalLiteDTUPedestalsESProducer",
-	ComponentName = cms.string('testPedestalProducer')
-)

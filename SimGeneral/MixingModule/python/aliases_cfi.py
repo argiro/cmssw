@@ -11,6 +11,16 @@ simEcalUnsuppressedDigis = cms.EDAlias(
         cms.PSet(type = cms.string('ESDigiCollection'))
     )
 )
+
+from Configuration.Eras.Modifier_phase2_ecal_cff import phase2_ecal
+(~phase2_ecal).toModify(simEcalUnsuppressedDigis, mix = None)
+
+phase2_ecal.toModify(simEcalUnsuppressedDigis,
+    mix = {
+        0 : dict(type = "EBDigiCollectionPh2"),
+    }
+)
+
 simHcalUnsuppressedDigis = cms.EDAlias(
     mix = cms.VPSet(
       cms.PSet(type = cms.string('HBHEDataFramesSorted')),
