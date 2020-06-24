@@ -15,7 +15,7 @@
 #include "SimCalorimetry/EcalSimAlgos/interface/EcalDigitizerTraits.h"
 #include "SimCalorimetry/EcalSimAlgos/interface/EcalTDigitizer.h"
 #include "SimGeneral/MixingModule/interface/DigiAccumulatorMixMod.h"
-
+#include "SimCalorimetry/EcalSimAlgos/interface/EBHitResponse.h"
 #include <vector>
 
 typedef EcalTDigitizer<EBDigitizerTraits> EBDigitizer;
@@ -25,7 +25,6 @@ typedef CaloTDigitizer<ESOldDigitizerTraits> ESOldDigitizer;
 class ESDigitizer;
 
 class APDSimParameters;
-class EBHitResponse;
 class EEHitResponse;
 class ESHitResponse;
 class CaloHitResponse;
